@@ -1,9 +1,9 @@
 workspace(name = "toolchains")
 
-load("//:toolchains_desp.bzl", "toolchains_deps")
+#load("//:toolchains_desp.bzl", "toolchains_deps")
 
 # Load common dependencies.
-toolchains_deps()
+#toolchains_deps()
 
 #load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
