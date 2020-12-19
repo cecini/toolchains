@@ -32,5 +32,5 @@ setup_local_python = repository_rule(
     implementation = _impl,
     local = True,
     #attrs = {},
-    attrs={"path": attr.string(mandatory=True),
+    attrs={"path": attr.string(mandatory=True)},
 )
