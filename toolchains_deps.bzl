@@ -24,3 +24,5 @@ def toolchains_deps():
         remote = "https://github.com/ankitects/rules_rust",
         shallow_since = "1607578413 +1000",
     )
+
+#def toolchains_deps_onlyrust():
