@@ -27,7 +27,7 @@ def setup_releasedeps():
 
 #    versions.check(minimum_bazel_version = "3.7.0")
 
-    raze_fetch_remote_crates()
+    #raze_fetch_remote_crates()
     rust_repositories(
         edition = "2018",
         #use_worker = True,
