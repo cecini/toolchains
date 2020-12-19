@@ -14,7 +14,7 @@ def setup_debugdeps():
     )
 
     # get local raze rust depend
-    raze_fetch_remote_crates()
+    #raze_fetch_remote_crates()
 
     #setup_local_python(name = "python")
     setup_local_python(name = "python", path = "/usr/local/python/bin/python" )
