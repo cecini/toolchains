@@ -1,5 +1,38 @@
 def _impl(rctx):
-    path = rctx.attr.path
+
+    # locate python on path, and export it
+#    names = [
+#        # prefer 3.8 over 3.9, as pylint currently fails on 3.9
+#        # (due to issues like https://github.com/PyCQA/pylint/pull/3890)
+#        "python.exe",
+#        "python3.8",
+#        "python3",
+#        "python.exe",
+#    ]
+    
+    path = None
+    if rctx.attr.path:
+        path = rctx.attr.path
+
+    if not rctx.attr.path: 	
+        names = rctx.attr.names
+        if bool(names) == False:
+            names = [
+                # prefer 3.8 over 3.9, as pylint currently fails on 3.9
+                # (due to issues like https://github.com/PyCQA/pylint/pull/3890)
+                "python3.8",
+                "python3",
+                "python.exe"
+            ]
+
+        for name in names:
+            path = rctx.which(name)
+            if path:
+                break
+    
+    if not path:
+        fail("python3 or python.exe not found on path by name or pypath")
+
     rctx.symlink(path, "python")
     rctx.file("BUILD.bazel", """
 load("@rules_python//python:defs.bzl", "py_runtime_pair")
@@ -32,5 +65,9 @@ setup_local_python = repository_rule(
     implementation = _impl,
     local = True,
     #attrs = {},
-    attrs={"path": attr.string(mandatory=True)},
+    #attrs={"path": attr.string(mandatory=True)},
+    attrs={
+		    "path": attr.string(mandatory=False),
+		    "names": attr.string_list(mandatory=False)
+	   }
 )
