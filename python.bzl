@@ -1,18 +1,5 @@
 def _impl(rctx):
-
-    # locate python on path, and export it
-#    names = [
-#        # prefer 3.8 over 3.9, as pylint currently fails on 3.9
-#        # (due to issues like https://github.com/PyCQA/pylint/pull/3890)
-#        "python.exe",
-#        "python3.8",
-#        "python3",
-#        "python.exe",
-#    ]
-    
     path = None
-   # if rctx.attr.path:
-   #     path = rctx.attr.path
     if rctx.os.environ.get("PYTHON_SYS_EXECUTABLE"):
         path = rctx.os.environ.get("PYTHON_SYS_EXECUTABLE")	
     else:  	
@@ -65,10 +52,7 @@ exports_files(["python"])
 setup_local_python = repository_rule(
     implementation = _impl,
     local = True,
-    #attrs = {},
-    #attrs={"path": attr.string(mandatory=True)},
     attrs={
-#		    "path": attr.string(mandatory=False),
 		    "names": attr.string_list(mandatory=False)
 	   }
 )
