@@ -11,10 +11,11 @@ def _impl(rctx):
 #    ]
     
     path = None
-    if rctx.attr.path:
-        path = rctx.attr.path
-
-    if not rctx.attr.path: 	
+   # if rctx.attr.path:
+   #     path = rctx.attr.path
+    if rctx.os.environ.get("PYTHON_SYS_EXECUTABLE"):
+        path = rctx.os.environ.get("PYTHON_SYS_EXECUTABLE")	
+    else:  	
         names = rctx.attr.names
         if bool(names) == False:
             names = [
@@ -31,7 +32,7 @@ def _impl(rctx):
                 break
     
     if not path:
-        fail("python3 or python.exe not found on path by name or pypath")
+        fail("python3 or python.exe not found on path, and PYTHON_SYS_EXECUTABLE not set")
 
     rctx.symlink(path, "python")
     rctx.file("BUILD.bazel", """
@@ -67,7 +68,7 @@ setup_local_python = repository_rule(
     #attrs = {},
     #attrs={"path": attr.string(mandatory=True)},
     attrs={
-		    "path": attr.string(mandatory=False),
+#		    "path": attr.string(mandatory=False),
 		    "names": attr.string_list(mandatory=False)
 	   }
 )
